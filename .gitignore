@@ -1,0 +1,9 @@
+# Build files
+build/
+docs/data
+docs/images
+docs/report.pdf
+
+# Vim .swp files
+*.swp
+

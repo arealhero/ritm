@@ -1,0 +1,17 @@
+# filename = "points.csv"
+
+set terminal png background rgb "white"
+set datafile separator ","
+
+set output "y_num.png"
+plot filename using 1:2 with linespoints title "y_n(x)" linecolor "red"
+
+f(x) = -x * exp(-3 * x) * (129*x**3 + 16*x**2 - 54*x - 36)/12
+set xrange [0:2]
+set output "y_etalon.png"
+plot f(x) with lines title "y_e(x)" linecolor "blue"
+
+set output "plot.png"
+plot filename using 1:2 with linespoints title "y_n(x)" linecolor "red", \
+    f(x) with lines title "y_e(x)" linecolor "blue"
+

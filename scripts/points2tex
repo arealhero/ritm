@@ -1,0 +1,38 @@
+#!/bin/sh
+
+if [ -z "$1" ] || [ -z "$2" ]
+then
+    echo "usage: points2tex <h> <csv file>"
+    exit 1
+fi
+
+h="$1"
+csv="$2"
+
+cat << EOF > points.tex
+\section{Таблица значений}
+Шаг: \$h = $h\$.
+\\begin{center}
+        \\tablehead{
+            \hline
+            \$x$ & \$y_n(x)$ & \$y_e(x)$ & \$y_e(x) - y_n(x)$\\\\
+            \hline
+        }
+        \\tabletail{
+            \hline
+        }
+        \\tablelasttail{
+            \hline
+        }
+        \\begin{supertabular}{|rrrr|}
+EOF
+
+tail -n +2 "$csv" \
+    | sed 's/,/ \& /g' \
+    | sed 's/$/ \\\\/g' >> points.tex
+
+cat << EOF >> points.tex
+        \end{supertabular}
+\end{center}
+EOF
+
